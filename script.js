@@ -1,77 +1,109 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
-var currRectX = 594;
-var currRectY = 16;
-var intervalVar;
+var currRectX = 25;
+var currRectY = 332;
+var mazeWidth = 702;
+var mazeHeight = 702;
+var name;
 
-function drawMaze(rectX, rectY) {
+$(".win").hide();
+$(".infoScreen").hide();
+$(".instructions").hide();
+$("canvas").hide();
+
+$("#submit").click(function(e){
+  e.preventDefault();
+  name = $("#name").val();
+  $(".startMenu").hide();
+  $(".showName").append("<p>Hello "+name+"!</p>");
+  $(".infoScreen").show();
+  drawMaze();
+  $("canvas").show();
+});
+
+$("#help").click(function(ev){
+  $(".instructions").show();
+});
+
+
+function drawMaze() {
     var mazeImg = new Image();
     mazeImg.onload = function () {
         context.drawImage(mazeImg, 0, 0);
-        drawRectangle(rectX, rectY);
+        drawRectangle(currRectX, currRectY);
         context.beginPath();
-        context.arc(615, 650, 6, 0, 2 * Math.PI);
+        context.arc(540, 675, 7.5, 0, 2 * Math.PI);
         context.closePath();
         context.fillStyle = "maroon";
         context.fill();
     };
-    mazeImg.src = "maze.gif";
+    mazeImg.src = 'maze.gif'
 }
 
 function drawRectangle(x, y) {
     currRectX = x;
     currRectY = y;
     context.beginPath();
-    context.rect(x, y, 13, 13);
+    context.rect(x, y, 15, 15);
     context.closePath();
     context.fillStyle = "green";
     context.fill();
 }
 
-// function moveBox(e){
-//   // var newX;
-//   // var newY;
-//   e = e || window.event;
-//   switch(e.keyCode){
-//     case 38:  //up key
-//       currRectX = currRectX;
-//       currRectY = currRectY - 5;
-//     break;
-//     case 37:  //left key
-//       currRectX = currRectX - 5;
-//       currRectY = currRectY;
-//     break;
-//     case 40:  //down key
-//       currRectX = currRectX;
-//       currRectY = currRectY -5;
-//     break;
-//     case 39:  //right key
-//       currRectX = currRectX -5;
-//       currRectY = currRectY;
-//     break;
-//   }
-// }
-
 $(document).keydown(function(e){
+  var newX = currRectX;
+  var newY = currRectY;
   switch(e.keyCode){
     case 38:  //up key
-      currRectX = currRectX;
-      currRectY = currRectY - 5;
+      newX = currRectX;
+      newY = currRectY - 5;
     break;
     case 37:  //left key
-      currRectX = currRectX - 5;
-      currRectY = currRectY;
+      newX = currRectX - 5;
+      newY = currRectY;
     break;
     case 40:  //down key
-      currRectX = currRectX;
-      currRectY = currRectY + 5;
+      newX = currRectX;
+      newY = currRectY + 5;
     break;
     case 39:  //right key
-      currRectX = currRectX + 5;
-      currRectY = currRectY;
+      newX = currRectX + 5;
+      newY = currRectY;
     break;
   }
-  drawRectangle(currRectX, currRectY);
+  var moveAllowed = canMoveTo(newX, newY);
+  if(moveAllowed === 1){
+    drawMaze();
+    drawRectangle(newX, newY);
+    currRectX = newX;
+    currRectY = newY;
+  }else if(moveAllowed === 2){
+    drawRectangle(newX, newY);
+    win();
+  }else{
+    drawRectangle(currRectX, currRectY);
+  }
 })
 
-drawMaze(594, 16);
+function canMoveTo(x, y) { //checks to see if move is legal or not
+    var imgData = context.getImageData(x, y, 15, 15);
+    var data = imgData.data;
+    var canMove = 1;
+    if (x >= 0 && x <= mazeWidth - 15 && y >= 0 && y <= mazeHeight - 15) {
+        for (var i = 0; i < 4 * 15 * 15; i += 4) {
+            if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 0) {
+                canMove = 0;
+                break;
+            }
+            else if (data[i] === 128 && data[i + 1] === 0 && data[i + 2] === 0) {
+                canMove = 2;
+                break;
+            }
+        }
+    }
+    return canMove;
+}
+
+function win(){
+  $(".win").show();
+}

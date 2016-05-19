@@ -3,14 +3,36 @@
   <head>
     <meta charset="utf-8">
     <title>MazeBalls</title>
-    <style>
-      {padding: 0; margin: 0}
-      canvas {background: #eee; display: block; margin: 0 auto;}
-    </style>
-    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
   </head>
   <body>
-    <canvas id="myCanvas" width="670" height="670"></canvas>
+    <div class="infoScreen">
+      <div class="showName"></div>
+      <div class="instructions">
+        Press the arrow <br>
+        buttons until the <br>
+        square moves
+      </div>
+      <form class="formHelp" action="index.html" method="post">
+        <input id="help" type="button" name="info" value="HELP!!">
+      </form>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="myCanvas" width="702" height="702"></canvas>
+      <div class="startMenu">
+        <div class ="welcome">
+          <p>Welcome to MazeBalls!</p>
+        </div>
+        <form class="userInfo" action="index.html" method="post">
+          <label id="askname" for="name">Please enter your name:</label>
+          <input id="name" type="text" name="name">
+          <input id="submit" type="button" name="name" value="That's my name!">
+        </form>
+      </div>
+    </div>
+    <div class="win">Woo!</div>
     <script src="script.js"></script>
   </body>
 </html>

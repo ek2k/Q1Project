@@ -1,0 +1,85 @@
+$mazeFont: "Monoton";
+$mazeBC: #FFE381;
+$fontColor: #1C448E;
+$borderColor: #6F8695;
+
+body{
+  width: 100%;
+  background-color: $mazeBC;
+  font-family: $mazeFont;
+  color: $fontColor;
+}
+
+p{
+  display: flex;
+  justify-content: center;
+}
+
+canvas{
+  margin-left: 20px;
+}
+
+.startMenu{
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  height: 200px;
+  width: 250px;
+  border: 5px solid $borderColor;
+}
+
+#name {
+  position: absolute;
+  top: 80px;
+  left: 57px;
+}
+
+#submit {
+  position: absolute;
+  top: 102px;
+  left: 60px;
+}
+
+.welcome{
+  top: 20px;
+}
+
+.infoScreen{
+  float: left;
+  height: 250px;
+  width: 250px;
+  border: 5px solid $borderColor;
+  margin-left: 25px;
+}
+
+#help{
+  position: absolute;
+  top: 70px;
+  left: 130px;
+}
+
+#askname{
+  position: absolute;
+  left: 5px;
+}
+
+.win{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
+  top: 40%;
+  left: 37%;
+  background-color: $mazeBC;
+  border: 5px solid $borderColor;
+}
+
+.instructions{
+  position: absolute;
+  top: 120px;
+  margin-left: 40px;
+  background-color: #DBFE87;
+}

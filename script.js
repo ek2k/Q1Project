@@ -22,7 +22,7 @@ $("#submit").click(function(e){
 });
 
 $("#help").click(function(ev){
-  $(".instructions").show();
+  $(".instructions").toggle();
 });
 
 
